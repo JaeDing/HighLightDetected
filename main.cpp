@@ -9,7 +9,7 @@ using namespace std;
 using namespace cv;
 
 //声明全局变量
-Mat mat;
+Mat mat,dst;
 int g_nTrackbarValue;
 const int g_nTrackbarMaxValue = 255;     //滑动条最大值
 
@@ -32,14 +32,12 @@ int main()
 //    imshow("src",src);
     imshow("src",src);
 
-//    mat.zeros()
-
     cvtColor(src,mat,COLOR_BGR2GRAY);
     imshow("mat",mat);
 
     namedWindow("threshold",1);
 
-    g_nTrackbarValue = 20;
+    g_nTrackbarValue = 200;
 
     createTrackbar("yz", "threshold", &g_nTrackbarValue, g_nTrackbarMaxValue, on_Trackbar);
     on_Trackbar(g_nTrackbarValue, 0);//结果在回调函数中显示
@@ -50,6 +48,7 @@ int main()
 
 void on_Trackbar(int ,void*)
 {
-    threshold(mat,mat,g_nTrackbarValue,255,CV_THRESH_BINARY);
-    imshow("threshold",mat);
+    cout << g_nTrackbarValue << endl;
+    threshold(mat,dst,g_nTrackbarValue,255,CV_THRESH_BINARY);
+    imshow("threshold",dst);
 }
